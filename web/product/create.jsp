@@ -45,7 +45,14 @@
         <tr>
           <td>Quantity:</td>
           <td>
-            <label for="quantity"></label><input type = "text" name = "quantity" id = "quantity" placeholder = "Inpur quantity of product"/>
+            <label for="quantity"></label><input type = "text" name = "quantity" id = "quantity" placeholder = "Input quantity of product"/>
+          </td>
+        </tr>
+        <tr>
+        <tr>
+          <td>Picture:</td>
+          <td>
+            <label for = "picture"></label><input type = "text" name = "picture" id = "picture" placeholder = "Input link picture for product"/>
           </td>
         </tr>
         <tr>

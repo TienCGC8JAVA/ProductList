@@ -11,6 +11,11 @@
   <head>
     <title>Bài tập của Chãu Chãu xinh trai</title>
   </head>
+  <style>
+    #picture {
+      width: 600px;
+    }
+  </style>
   <body>
     <h1>Edit product</h1>
   <p>
@@ -36,6 +41,13 @@
           <tr>
             <td>Quantity: </td>
             <td><label for="quantity"></label><input type="text" name="quantity" id="quantity" value="${requestScope["product"].getQuantity()}"></td>
+          </tr>
+          <tr>
+            <td>Picture:</td>
+            <td>
+              <img src = "${requestScope["product"].getPicture()}" height = "150"/>
+              <input type = "text" name = "picture" id = "picture" value = "${requestScope["product"].getPicture() }">
+            </td>
           </tr>
           <tr>
             <td></td>

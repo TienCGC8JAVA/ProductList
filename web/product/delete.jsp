@@ -33,6 +33,10 @@
             <td>${requestScope["product"].getQuantity()}</td>
           </tr>
           <tr>
+            <td>Picture: </td>
+            <td><img src = "${requestScope["product"].getPicture()}"  height = "180"/></td>
+          </tr>
+          <tr>
             <td><input type="submit" value="Delete product"></td>
             <td>
               <a href="${pageContext.request.contextPath}/products">Back to product list</a>

@@ -28,6 +28,10 @@
         <td>Quantity: </td>
         <td>${requestScope["product"].getQuantity()}</td>
       </tr>
+      <tr>
+        <td>Picture: </td>
+        <td><img src = "${requestScope["product"].getPicture()}"  alt = "not connect wifi"/></td>
+      </tr>
     </table>
   </body>
 </html>
