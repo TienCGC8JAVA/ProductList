@@ -2,7 +2,6 @@ package service;
 
 import model.Product;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,11 +57,14 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public Product searchByName(String name) {
+  public List<Product> searchByName(String name) {
     List<Product> products = findAll();
+    String isLowerName = name.toLowerCase().trim();
+    List<Product> responseProducts = new ArrayList<>();
     for (Product product : products){
-      if(name.equals(product.getName())) return product;
+      String isLoweProduct = product.getName().toLowerCase().trim();
+      if(isLoweProduct.contains(isLowerName)) responseProducts.add(product);
     }
-    return null;
+    return responseProducts;
   }
 }

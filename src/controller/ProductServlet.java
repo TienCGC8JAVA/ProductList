@@ -114,7 +114,7 @@ public class ProductServlet extends HttpServlet {
       quantity = Integer.parseInt(request.getParameter("quantity"));
       String appPath = request.getServletContext().getRealPath("");
       appPath = appPath.replace('\\', '/');
-      String fullSavePath = null;
+      String fullSavePath;
       if (appPath.endsWith("/")) {
         fullSavePath = appPath + SAVE_DIRECTORY;
       } else {
@@ -128,8 +128,6 @@ public class ProductServlet extends HttpServlet {
         String fileName = extractFileName(part);
         if (fileName != null && fileName.length() > 0) {
           String filePath = fullSavePath + File.separator + fileName;
-          System.out.println("Write attachment to file: " + filePath);
-
           part.write(filePath);
           picture = fileName;
         }
@@ -292,13 +290,13 @@ public class ProductServlet extends HttpServlet {
   private void searchByName(HttpServletRequest request, HttpServletResponse response){
 
     String search = request.getParameter("search");
-    Product product = this.productService.searchByName(search);
+    List<Product> products = this.productService.searchByName(search);
     RequestDispatcher dispatcher;
-    if(product == null){
+    if(products == null){
       dispatcher = request.getRequestDispatcher("error-404.jsp");
     } else {
-      request.setAttribute("product", product);
-      dispatcher = request.getRequestDispatcher("product/view.jsp");
+      request.setAttribute("products", products);
+      dispatcher = request.getRequestDispatcher("product/result.jsp");
     }
     try {
       dispatcher.forward(request, response);
