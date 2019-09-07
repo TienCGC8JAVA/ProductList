@@ -1,14 +1,15 @@
 package model;
 
+import java.io.File;
 
 public class Product {
   private int id;
   private String name;
   private long price;
   private int quantity;
-  private String picture;
+  private File picture;
 
-  public Product(int id, String name, int price, int quantity, String picture) {
+  public Product(int id, String name, int price, int quantity, File picture) {
     this.id = id;
     this.name = name;
     this.price = price;
@@ -16,11 +17,11 @@ public class Product {
     this.picture = picture;
   }
 
-  public String getPicture() {
+  public File getPicture() {
     return picture;
   }
 
-  public void setPicture(String picture) {
+  public void setPicture(File picture) {
     this.picture = picture;
   }
 

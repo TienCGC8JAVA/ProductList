@@ -28,10 +28,10 @@ public class ProductServlet extends HttpServlet {
     }
     switch (action){
       case  "create":
-        createProduct(request, response);
+//        createProduct(request, response);
         break;
       case "edit":
-        updateProduct(request, response);
+//        updateProduct(request, response);
         break;
       case "delete":
         deleteProduct(request, response);
@@ -92,32 +92,32 @@ public class ProductServlet extends HttpServlet {
     }
   }
 
-  private void createProduct(HttpServletRequest request, HttpServletResponse response){
-
-    String name = request.getParameter("name");
-    int price;
-    int quantity;
-    String picture;
-    RequestDispatcher dispatcher;
-    try {
-      price = Integer.parseInt(request.getParameter("price"));
-      quantity = Integer.parseInt(request.getParameter("quantity"));
-      picture = request.getParameter("picture");
-      int id = (int) (Math.random() * 100000);
-
-      Product product = new Product(id, name, price, quantity, picture);
-      this.productService.save(product);
-      dispatcher = request.getRequestDispatcher("product/create.jsp");
-      request.setAttribute("message", "New product was created");
-    } catch (NumberFormatException e) {
-      dispatcher = request.getRequestDispatcher("error-404.jsp");
-    }
-    try {
-      dispatcher.forward(request, response);
-    } catch (ServletException | IOException e) {
-      e.printStackTrace();
-    }
-  }
+//  private void createProduct(HttpServletRequest request, HttpServletResponse response){
+//
+//    String name = request.getParameter("name");
+//    int price;
+//    int quantity;
+//    String picture;
+//    RequestDispatcher dispatcher;
+//    try {
+//      price = Integer.parseInt(request.getParameter("price"));
+//      quantity = Integer.parseInt(request.getParameter("quantity"));
+//      picture = request.getParameter("picture");
+//      int id = (int) (Math.random() * 100000);
+//
+//      Product product = new Product(id, name, price, quantity, picture);
+//      this.productService.save(product);
+//      dispatcher = request.getRequestDispatcher("product/create.jsp");
+//      request.setAttribute("message", "New product was created");
+//    } catch (NumberFormatException e) {
+//      dispatcher = request.getRequestDispatcher("error-404.jsp");
+//    }
+//    try {
+//      dispatcher.forward(request, response);
+//    } catch (ServletException | IOException e) {
+//      e.printStackTrace();
+//    }
+//  }
 
   private  void showEditForm(HttpServletRequest request, HttpServletResponse response){
 
@@ -137,34 +137,34 @@ public class ProductServlet extends HttpServlet {
     }
   }
 
-  private void updateProduct(HttpServletRequest request, HttpServletResponse response){
-
-    int id = Integer.parseInt(request.getParameter("id"));
-    String name = request.getParameter("name");
-    RequestDispatcher dispatcher;
-    try {
-      int price = Integer.parseInt(request.getParameter("price"));
-      int quantity = Integer.parseInt(request.getParameter("quantity"));
-      String picture = request.getParameter("picture");
-      Product product = this.productService.findById(id);
-      product.setId(id);
-      product.setName(name);
-      product.setPrice(price);
-      product.setQuantity(quantity);
-      product.setPicture(picture);
-      this.productService.update(id, product);
-      request.setAttribute("product", product);
-      request.setAttribute("message", "Product information was updated");
-      dispatcher = request.getRequestDispatcher("product/edit.jsp");
-    } catch (NumberFormatException e) {
-      dispatcher = request.getRequestDispatcher("error-404.jsp");
-    }
-    try {
-      dispatcher.forward(request, response);
-    } catch (ServletException | IOException e) {
-      e.printStackTrace();
-    }
-  }
+//  private void updateProduct(HttpServletRequest request, HttpServletResponse response){
+//
+//    int id = Integer.parseInt(request.getParameter("id"));
+//    String name = request.getParameter("name");
+//    RequestDispatcher dispatcher;
+//    try {
+//      int price = Integer.parseInt(request.getParameter("price"));
+//      int quantity = Integer.parseInt(request.getParameter("quantity"));
+//      String picture = request.getParameter("picture");
+//      Product product = this.productService.findById(id);
+//      product.setId(id);
+//      product.setName(name);
+//      product.setPrice(price);
+//      product.setQuantity(quantity);
+//      product.setPicture(picture);
+//      this.productService.update(id, product);
+//      request.setAttribute("product", product);
+//      request.setAttribute("message", "Product information was updated");
+//      dispatcher = request.getRequestDispatcher("product/edit.jsp");
+//    } catch (NumberFormatException e) {
+//      dispatcher = request.getRequestDispatcher("error-404.jsp");
+//    }
+//    try {
+//      dispatcher.forward(request, response);
+//    } catch (ServletException | IOException e) {
+//      e.printStackTrace();
+//    }
+//  }
 
   private void showDeleteForm(HttpServletRequest request, HttpServletResponse response){
     int id = Integer.parseInt(request.getParameter("id"));
