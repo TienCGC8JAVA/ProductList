@@ -26,7 +26,7 @@
     <p>
       <a href="${pageContext.request.contextPath}/products">Back to product list</a>
     </p>
-    <form method = "post">
+    <form method = "post" enctype = "multipart/form-data">
       <fieldset>
         <legend>Product information</legend>
         <table>
@@ -45,8 +45,8 @@
           <tr>
             <td>Picture:</td>
             <td>
-              <img src = "${requestScope["product"].getPicture()}" height = "150"/>
-              <input type = "text" name = "picture" id = "picture" value = "${requestScope["product"].getPicture() }">
+              <img src = "<%=request.getContextPath()%>/images/${requestScope["product"].getPicture()}" height = "150"/>
+              <input type = "file" name = "picture" id = "picture" >
             </td>
           </tr>
           <tr>

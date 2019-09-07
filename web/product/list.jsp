@@ -52,7 +52,7 @@
           <td>${product.getPrice()} VND</td>
           <td>${product.getQuantity()}</td>
           <td>
-            <img src="<%=request.getContextPath()%>/images/${product.getPicture()}" height = "100px"  alt = "tên ảnh sai!"/>
+            <img src="<%=request.getContextPath()%>/images/${product.getPicture()}" height = "100px"  alt = "not connect!"/>
           </td>
           <td>
             <a href = "${pageContext.request.contextPath}/products?action=edit&id=${product.getId()}">edit</a>

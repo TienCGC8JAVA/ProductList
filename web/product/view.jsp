@@ -30,7 +30,7 @@
       </tr>
       <tr>
         <td>Picture: </td>
-        <td><img src = "${requestScope["product"].getPicture()}"  alt = "not connect wifi"/></td>
+        <td><img src = "<%=request.getContextPath()%>/images/${requestScope["product"].getPicture()}"  alt = "not connect wifi"/></td>
       </tr>
     </table>
   </body>

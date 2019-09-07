@@ -34,7 +34,7 @@
           </tr>
           <tr>
             <td>Picture: </td>
-            <td><img src = "${requestScope["product"].getPicture()}"  height = "180"/></td>
+            <td><img src = "<%=request.getContextPath()%>/images/${requestScope["product"].getPicture()}"  height = "180"/></td>
           </tr>
           <tr>
             <td><input type="submit" value="Delete product"></td>

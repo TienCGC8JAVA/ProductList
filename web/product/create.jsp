@@ -26,7 +26,7 @@
   <p>
     <a href = "${pageContext.request.contextPath}/products">Back to product list</a>
   </p>
-  <form method = "post">
+  <form method = "post" enctype = "multipart/form-data">
     <fieldset>
       <legend>Product information</legend>
       <table>
@@ -52,7 +52,7 @@
         <tr>
           <td>Picture:</td>
           <td>
-            <label for = "picture"></label><input type = "text" name = "picture" id = "picture" placeholder = "Input link picture for product"/>
+            <label for = "picture"></label><input type = "file" name = "picture" id = "picture" placeholder = "update file"/>
           </td>
         </tr>
         <tr>
