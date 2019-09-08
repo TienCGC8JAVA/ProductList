@@ -106,34 +106,13 @@ public class ProductServlet extends HttpServlet {
     String name = request.getParameter("name");
     int price;
     int quantity;
-    String picture = "";
+    String picture;
     RequestDispatcher dispatcher;
-
     try {
       price = Integer.parseInt(request.getParameter("price"));
       quantity = Integer.parseInt(request.getParameter("quantity"));
-      String appPath = request.getServletContext().getRealPath("");
-      appPath = appPath.replace('\\', '/');
-      String fullSavePath;
-      if (appPath.endsWith("/")) {
-        fullSavePath = appPath + SAVE_DIRECTORY;
-      } else {
-        fullSavePath = appPath + "/" + SAVE_DIRECTORY;
-      }
-      File fileSaveDir = new File(fullSavePath);
-      if (!fileSaveDir.exists()) {
-        fileSaveDir.mkdir();
-      }
-      for (Part part : request.getParts()) {
-        String fileName = extractFileName(part);
-        if (fileName != null && fileName.length() > 0) {
-          String filePath = fullSavePath + File.separator + fileName;
-          part.write(filePath);
-          picture = fileName;
-        }
-      }
       int id = (int) (Math.random() * 100000);
-
+      picture = uploadFile(request, response);
       Product product = new Product(id, name, price, quantity, picture);
       this.productService.save(product);
       dispatcher = request.getRequestDispatcher("product/create.jsp");
@@ -165,6 +144,31 @@ public class ProductServlet extends HttpServlet {
     return null;
   }
 
+  private String uploadFile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    String appPath = request.getServletContext().getRealPath("");
+    appPath = appPath.replace('\\', '/');
+    String fullSavePath = null;
+    String picture = null;
+    if (appPath.endsWith("/")) {
+      fullSavePath = appPath + SAVE_DIRECTORY;
+    } else {
+      fullSavePath = appPath + "/" + SAVE_DIRECTORY;
+    }
+    File fileSaveDir = new File(fullSavePath);
+    if (!fileSaveDir.exists()) {
+      fileSaveDir.mkdir();
+    }
+    for (Part part : request.getParts()) {
+      String fileName = extractFileName(part);
+      if (fileName != null && fileName.length() > 0) {
+        String filePath = fullSavePath + File.separator + fileName;
+        part.write(filePath);
+        picture = fileName;
+      }
+    }
+    return picture;
+  }
+
   private  void showEditForm(HttpServletRequest request, HttpServletResponse response){
 
     int id = Integer.parseInt(request.getParameter("id"));
@@ -193,34 +197,13 @@ public class ProductServlet extends HttpServlet {
       int quantity = Integer.parseInt(request.getParameter("quantity"));
       String picture = request.getParameter("picture");
 
-      String appPath = request.getServletContext().getRealPath("");
-      appPath = appPath.replace('\\', '/');
-      String fullSavePath = null;
-      if (appPath.endsWith("/")) {
-        fullSavePath = appPath + SAVE_DIRECTORY;
-      } else {
-        fullSavePath = appPath + "/" + SAVE_DIRECTORY;
-      }
-      File fileSaveDir = new File(fullSavePath);
-      if (!fileSaveDir.exists()) {
-        fileSaveDir.mkdir();
-      }
-      for (Part part : request.getParts()) {
-        String fileName = extractFileName(part);
-        if (fileName != null && fileName.length() > 0) {
-          String filePath = fullSavePath + File.separator + fileName;
-          part.write(filePath);
-          picture = fileName;
-        }
-      }
-
 
       Product product = this.productService.findById(id);
       product.setId(id);
       product.setName(name);
       product.setPrice(price);
       product.setQuantity(quantity);
-      product.setPicture(picture);
+      product.setPicture(uploadFile(request, response));
       this.productService.update(id, product);
       request.setAttribute("product", product);
       request.setAttribute("message", "Product information was updated");
@@ -300,9 +283,7 @@ public class ProductServlet extends HttpServlet {
     }
     try {
       dispatcher.forward(request, response);
-    } catch (ServletException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
+    } catch (ServletException | IOException e) {
       e.printStackTrace();
     }
   }
