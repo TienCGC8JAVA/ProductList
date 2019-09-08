@@ -24,7 +24,7 @@ public class ProductServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
-  public static final String SAVE_DIRECTORY = "images";
+  private static final String SAVE_DIRECTORY = "images";
 
   private ProductService productService = new ProductServiceImpl();
 
