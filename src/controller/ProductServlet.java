@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ProductServlet", urlPatterns = "/products")
@@ -112,7 +113,7 @@ public class ProductServlet extends HttpServlet {
       price = Integer.parseInt(request.getParameter("price"));
       quantity = Integer.parseInt(request.getParameter("quantity"));
       int id = (int) (Math.random() * 100000);
-      picture = uploadFile(request, response);
+      picture = uploadFile(request);
       Product product = new Product(id, name, price, quantity, picture);
       this.productService.save(product);
       dispatcher = request.getRequestDispatcher("product/create.jsp");
@@ -144,11 +145,11 @@ public class ProductServlet extends HttpServlet {
     return null;
   }
 
-  private String uploadFile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+  private String uploadFile(HttpServletRequest request) throws IOException, ServletException {
     String appPath = request.getServletContext().getRealPath("");
     appPath = appPath.replace('\\', '/');
-    String fullSavePath = null;
-    String picture = null;
+    String fullSavePath;
+    String picture = "";
     if (appPath.endsWith("/")) {
       fullSavePath = appPath + SAVE_DIRECTORY;
     } else {
@@ -195,15 +196,12 @@ public class ProductServlet extends HttpServlet {
       String name = request.getParameter("name");
       int price = Integer.parseInt(request.getParameter("price"));
       int quantity = Integer.parseInt(request.getParameter("quantity"));
-      String picture = request.getParameter("picture");
-
-
       Product product = this.productService.findById(id);
       product.setId(id);
       product.setName(name);
       product.setPrice(price);
       product.setQuantity(quantity);
-      product.setPicture(uploadFile(request, response));
+      if(uploadFile(request) != "") product.setPicture(uploadFile(request));
       this.productService.update(id, product);
       request.setAttribute("product", product);
       request.setAttribute("message", "Product information was updated");
@@ -275,7 +273,7 @@ public class ProductServlet extends HttpServlet {
     String search = request.getParameter("search");
     List<Product> products = this.productService.searchByName(search);
     RequestDispatcher dispatcher;
-    if(products == null){
+    if(products.size()==0) {
       dispatcher = request.getRequestDispatcher("error-404.jsp");
     } else {
       request.setAttribute("products", products);

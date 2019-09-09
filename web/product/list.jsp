@@ -11,12 +11,9 @@
   <head>
     <title>Bài tập của Chãu Chãu xinh trai</title>
   </head>
-  <style>
-    table {
-      text-align: center;
-    }
-  </style>
-  <body>
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/codePen/basicDemo.css">
+
+  <body id="jsi-hex-container">
     <h1>Products</h1>
     <form method = "post" action="${pageContext.request.contextPath}/products?action=search">
       <table>
@@ -24,7 +21,7 @@
           <td>
             <input type = "text" name = "search"/>
           </td>
-          <td>
+          <td class = "headline">
             <button type = "submit" >Search</button>
           </td>
         </tr>
@@ -34,7 +31,7 @@
       <a href = "${pageContext.request.contextPath}/products?action=create">Create new product</a>
     </p>
     <table border = "1">
-      <tr>
+      <tr class = "headline">
         <td>ID</td>
         <td>Name</td>
         <td>Price</td>
@@ -64,4 +61,5 @@
       </c:forEach>
     </table>
   </body>
+
 </html>
